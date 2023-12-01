@@ -1,6 +1,6 @@
 ---
 runme:
-  id: 01HG8S9S322K1DGCBPYT6384CF
+  id: 01HGB9JTRBDTG3Y375Q4M8TJD6
   version: v2.0
 ---
 
@@ -26,5 +26,8 @@ cargo nextest run -- create_image_request_custom_shoud_serialize
 mkdir /tmp/llm-sdk  
 cargo nextest run -- create_image_should_work -- --nocapture
 open /tmp/llm-sdk/caterpillar.png    
+cargo install git-cliff
+git cliff --init
+git cliff -o CHANGELOG.md
 
 ```

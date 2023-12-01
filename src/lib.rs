@@ -3,8 +3,7 @@ pub use api::*;
 use std::time::Duration;
 
 use anyhow::Result;
-use reqwest::{Client, RequestBuilder, Response};
-// #`"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"`
+use reqwest::{Client, RequestBuilder};
 
 const TIMEOUT: u64 = 30;
 
@@ -26,14 +25,14 @@ impl LlmSdk {
         }
     }
 
-    // pub async fn chat_completion(
-    //     &self,
-    //     req: ChatCompletionRequest,
-    // ) -> Result<ChatCompletionResponse> {
-    //     let req = self.prepare_request(req);
-    //     let res = req.send().await?;
-    //     Ok(res.json::<ChatCompletionResponse>().await?)
-    // }
+    pub async fn chat_completion(
+        &self,
+        req: ChatCompletionRequest,
+    ) -> Result<ChatCompletionResponse> {
+        let req = self.prepare_request(req);
+        let res = req.send().await?;
+        Ok(res.json::<ChatCompletionResponse>().await?)
+    }
 
     pub async fn create_image(&self, req: CreateImageRequest) -> Result<CreateImageResponse> {
         let req = self.prepare_request(req);

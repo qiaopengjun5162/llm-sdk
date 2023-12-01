@@ -44,31 +44,35 @@ pub struct CreateImageRequest {
     user: Option<String>,
 }
 
-#[derive(Debug, Clone, Serialize, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Serialize, Copy, PartialEq, Eq, Default)]
 pub enum ImageModel {
     #[serde(rename = "dall-e-3")]
+    #[default]
     DallE3,
 }
 
-#[derive(Debug, Clone, Serialize, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Serialize, Copy, PartialEq, Eq, Default)]
 #[serde(rename_all = "snake_case")]
 pub enum ImageQuality {
     #[serde(rename = "default")]
+    #[default]
     Standard,
     #[serde(rename = "hd")]
     Hd,
 }
 
-#[derive(Debug, Clone, Serialize, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Serialize, Copy, PartialEq, Eq, Default)]
 #[serde(rename_all = "snake_case")]
 pub enum ImageResponseFormat {
+    #[default]
     Url,
     B64Json,
 }
 
-#[derive(Debug, Clone, Serialize, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Serialize, Copy, PartialEq, Eq, Default)]
 pub enum ImageSize {
     #[serde(rename = "1024x1024")]
+    #[default]
     Large,
     #[serde(rename = "1792x1024")]
     LargeWide,
@@ -76,9 +80,10 @@ pub enum ImageSize {
     LargeTall,
 }
 
-#[derive(Debug, Clone, Serialize, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Serialize, Copy, PartialEq, Eq, Default)]
 pub enum ImageStyle {
     #[serde(rename = "vivid")]
+    #[default]
     Vivid,
     #[serde(rename = "natural")]
     Natural,
@@ -120,29 +125,29 @@ impl CreateImageRequest {
     }
 }
 
-impl Default for ImageModel {
-    fn default() -> Self {
-        ImageModel::DallE3
-    }
-}
+// impl Default for ImageModel {
+//     fn default() -> Self {
+//         ImageModel::DallE3
+//     }
+// }
 
-impl Default for ImageQuality {
-    fn default() -> Self {
-        ImageQuality::Standard
-    }
-}
+// impl Default for ImageQuality {
+//     fn default() -> Self {
+//         ImageQuality::Standard
+//     }
+// }
 
-impl Default for ImageSize {
-    fn default() -> Self {
-        ImageSize::Large
-    }
-}
+// impl Default for ImageSize {
+//     fn default() -> Self {
+//         ImageSize::Large
+//     }
+// }
 
-impl Default for ImageStyle {
-    fn default() -> Self {
-        ImageStyle::Vivid
-    }
-}
+// impl Default for ImageStyle {
+//     fn default() -> Self {
+//         ImageStyle::Vivid
+//     }
+// }
 
 #[cfg(test)]
 mod tests {
@@ -190,9 +195,10 @@ mod tests {
 
     #[tokio::test]
     async fn create_image_should_work() -> Result<()> {
-        // let sdk = LlmSdk::new(std::env::var("OPENAI_API_KEY")?);
-        let sdk = LlmSdk::new("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".to_string());
-        let req = CreateImageRequest::new("hello world");
+        println!("OPENAI_API_KEY1: {:#?}", std::env::var("OPENAI_API_KEY")?);
+        println!("OPENAI_API_KEY2: {:?}", std::env::var("OPENAI_API_KEY")?);
+        let sdk = LlmSdk::new(std::env::var("OPENAI_API_KEY")?);
+        let req = CreateImageRequest::new("hello girl");
         let res = sdk.create_image(req).await?;
         assert_eq!(res.data.len(), 1);
         let image = &res.data[0];
